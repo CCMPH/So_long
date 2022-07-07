@@ -6,7 +6,7 @@
 #    By: chartema <chartema@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/06/28 11:50:23 by chartema      #+#    #+#                  #
-#    Updated: 2022/06/29 10:49:53 by chartema      ########   odam.nl          #
+#    Updated: 2022/07/07 11:39:13 by chartema      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,19 +18,21 @@ RM = rm -f
 
 LIBFT = ./lib/libft
 LIBMLX = ./lib/MLX42
-INC_PATH = ./lib/MLX42/include/ ./lib/libft/ ./include
+LIBGNL = ./lib/GNL
+INC_PATH = ./lib/MLX42/include/ ./lib/libft/ ./lib/GNL/ ./include
 
 FILES = main.c
 OBJS = $(FILES:.c=.o)
 INC = $(addprefix -I, $(INC_PATH)) 
 
-MLX_FLAGS = -lglfw -L /Users/$(USER)/.brew/opt/glfw/lib/ $(LIBMLX)/libmlx42.a $(LIBFT)/libft.a
+MLX_FLAGS = -lglfw -L /Users/$(USER)/.brew/opt/glfw/lib/ $(LIBMLX)/libmlx42.a $(LIBFT)/libft.a $(LIBGNL)/get_next_line.a
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(MAKE) -C $(LIBFT)
 	$(MAKE) -C $(LIBMLX)
+	$(MAKE) -C $(LIBGNL)
 	$(CC) $(MLX_FLAGS) $(OBJS) -o $(NAME)
 
 %.o: %.c
@@ -40,11 +42,13 @@ clean:
 	$(RM) $(OBJS)
 	$(MAKE) -C $(LIBFT) clean
 	$(MAKE) -C $(LIBMLX) clean
+	$(MAKE) -C $(LIBGNL) clean
 
 fclean: clean
 	$(RM) $(NAME)
 	$(MAKE) -C $(LIBFT) fclean
 	$(MAKE) -C $(LIBMLX) fclean
+	$(MAKE) -C $(LIBGNL) fclean
 
 re: clean all
 

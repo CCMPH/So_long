@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   so_long.h                                          :+:    :+:            */
+/*   get_next_line.h                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: chartema <chartema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/06/28 14:10:01 by chartema      #+#    #+#                 */
-/*   Updated: 2022/07/07 15:09:52 by chartema      ########   odam.nl         */
+/*   Created: 2021/11/09 09:22:14 by chartema      #+#    #+#                 */
+/*   Updated: 2022/07/07 11:58:27 by chartema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-# include "../lib/libft/libft.h"
-# include "../lib/GNL/get_next_line.h"
-# include "MLX42/MLX42.h"
+# include <stdlib.h>
 
-typedef struct s_data
-{
-	char	**map;
-	int		collectables;
-	int		exits;
-	int		players;
-	int		map_height;
-	int		map_width;
-}				t_data;
+int		check_newline(char *storage);
+int		ft_strlen2(char *s);
+char	*join_storage_and_buff(char *storage, char *buff);
+char	*free_line(char *str);
+void	*ft_calloc2(size_t count, size_t size);
+char	*get_next_line(int fd);
 
 #endif
