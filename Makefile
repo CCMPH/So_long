@@ -6,7 +6,7 @@
 #    By: chartema <chartema@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/06/28 11:50:23 by chartema      #+#    #+#                  #
-#    Updated: 2022/07/07 11:39:13 by chartema      ########   odam.nl          #
+#    Updated: 2022/07/08 15:21:43 by chartema      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ LIBMLX = ./lib/MLX42
 LIBGNL = ./lib/GNL
 INC_PATH = ./lib/MLX42/include/ ./lib/libft/ ./lib/GNL/ ./include
 
-FILES = main.c
+FILES = main.c check_map.c utils.c validation.c
 OBJS = $(FILES:.c=.o)
 INC = $(addprefix -I, $(INC_PATH)) 
 
