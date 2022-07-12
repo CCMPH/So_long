@@ -6,12 +6,13 @@
 /*   By: chartema <chartema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/28 14:10:01 by chartema      #+#    #+#                 */
-/*   Updated: 2022/07/08 15:22:02 by chartema      ########   odam.nl         */
+/*   Updated: 2022/07/12 15:02:35 by chartema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
+# define BLOCKSIZE 128
 
 # include "../lib/libft/libft.h"
 # include "../lib/GNL/get_next_line.h"
@@ -20,11 +21,22 @@
 typedef struct s_data
 {
 	char	**map;
+	mlx_t	*mlx;
 	int		collectables;
 	int		exits;
 	int		players;
 	int		columns;
 	int		rows;
+
+	void	*ground_texture;
+	void	*ground_image;
+	void	*tree_texture;
+	void	*tree_image;
+	void	*rabbit_texture;
+	void	*rabbit_image;
+	void	*player_texture;
+	void	*collectable_texture;
+	void	*exit_texture;
 }				t_data;
 
 // UTILS //

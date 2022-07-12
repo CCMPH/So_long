@@ -6,13 +6,13 @@
 #    By: chartema <chartema@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/06/28 11:50:23 by chartema      #+#    #+#                  #
-#    Updated: 2022/07/08 15:21:43 by chartema      ########   odam.nl          #
+#    Updated: 2022/07/12 14:25:09 by chartema      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g
 CC = gcc
 RM = rm -f
 
