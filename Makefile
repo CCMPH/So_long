@@ -6,7 +6,7 @@
 #    By: chartema <chartema@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/06/28 11:50:23 by chartema      #+#    #+#                  #
-#    Updated: 2022/07/12 14:25:09 by chartema      ########   odam.nl          #
+#    Updated: 2022/07/13 15:28:59 by chartema      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ LIBMLX = ./lib/MLX42
 LIBGNL = ./lib/GNL
 INC_PATH = ./lib/MLX42/include/ ./lib/libft/ ./lib/GNL/ ./include
 
-FILES = main.c check_map.c utils.c validation.c
+FILES = main.c check_map.c utils.c validation.c init_mlx.c set_mlx.c
 OBJS = $(FILES:.c=.o)
 INC = $(addprefix -I, $(INC_PATH)) 
 
@@ -33,7 +33,7 @@ $(NAME): $(OBJS)
 	$(MAKE) -C $(LIBFT)
 	$(MAKE) -C $(LIBMLX)
 	$(MAKE) -C $(LIBGNL)
-	$(CC) $(MLX_FLAGS) $(OBJS) -o $(NAME)
+	$(CC) $(MLX_FLAGS) $(OBJS) -o $(NAME) -fsanitize=address
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(INC) -c $<

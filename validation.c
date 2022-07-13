@@ -6,14 +6,14 @@
 /*   By: chartema <chartema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/08 15:12:40 by chartema      #+#    #+#                 */
-/*   Updated: 2022/07/08 15:17:18 by chartema      ########   odam.nl         */
+/*   Updated: 2022/07/13 11:09:30 by chartema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/so_long.h"
 #include <fcntl.h> //nodig voor open
 
-int	check_extension(char *filename, char *ext)
+void	check_extension(char *filename, char *ext)
 {
 	size_t	filename_len;
 	size_t	ext_len;
@@ -31,7 +31,6 @@ int	check_extension(char *filename, char *ext)
 		ext_len--;
 		filename_len--;
 	}
-	return (0);
 }
 
 void	check_newlines(char *str)
@@ -82,7 +81,14 @@ char	**parse_map(int fd)
 	return (map);
 }
 
-int	validate_map(char *map, t_data *data)
+void	get_width_and_height(t_game	*game)
+{
+	while (game->data->map[game->data->map_rows] != NULL)
+		game->data->map_rows += 1;
+	game->data->map_columns = ft_strlen(game->data->map[0]);
+}
+
+int	validate_map(char *map, t_game *game)
 {
 	int	fd;
 
@@ -90,8 +96,9 @@ int	validate_map(char *map, t_data *data)
 	fd = open(map, O_RDONLY);
 	if (fd == -1)
 		exit_msg("Error\nInvalid file");
-	data->map = parse_map(fd);
-	check_map(data);
+	game->data->map = parse_map(fd);
+	get_width_and_height(game);
+	check_map(game->data);
 	close(fd);
 	return (0);
 }

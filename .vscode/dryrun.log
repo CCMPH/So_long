@@ -1,0 +1,28 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory `/Users/chartema/Documents/07 - So_long/So_long'
+gcc -Wall -Werror -Wextra -g -I./lib/MLX42/include/ -I./lib/libft/ -I./lib/GNL/ -I./include  -c main.c
+ 
+gcc -Wall -Werror -Wextra -g -I./lib/MLX42/include/ -I./lib/libft/ -I./lib/GNL/ -I./include  -c init_mlx.c
+gcc -Wall -Werror -Wextra -g -I./lib/MLX42/include/ -I./lib/libft/ -I./lib/GNL/ -I./include  -c set_mlx.c
+ 
+/Applications/Xcode.app/Contents/Developer/usr/bin/make -C ./lib/libft
+ 
+make[1]: Entering directory `/Users/chartema/Documents/07 - So_long/So_long/lib/libft'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/Users/chartema/Documents/07 - So_long/So_long/lib/libft'
+ 
+/Applications/Xcode.app/Contents/Developer/usr/bin/make -C ./lib/MLX42
+ 
+make[1]: Entering directory `/Users/chartema/Documents/07 - So_long/So_long/lib/MLX42'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/Users/chartema/Documents/07 - So_long/So_long/lib/MLX42'
+ 
+/Applications/Xcode.app/Contents/Developer/usr/bin/make -C ./lib/GNL
+ 
+make[1]: Entering directory `/Users/chartema/Documents/07 - So_long/So_long/lib/GNL'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/Users/chartema/Documents/07 - So_long/So_long/lib/GNL'
+ 
+gcc -lglfw -L /Users/chartema/.brew/opt/glfw/lib/ ./lib/MLX42/libmlx42.a ./lib/libft/libft.a ./lib/GNL/get_next_line.a main.o check_map.o utils.o validation.o init_mlx.o set_mlx.o -o so_long -fsanitize=address
+make: Leaving directory `/Users/chartema/Documents/07 - So_long/So_long'
+ 
