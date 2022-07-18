@@ -6,7 +6,7 @@
 /*   By: chartema <chartema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/27 10:37:39 by chartema      #+#    #+#                 */
-/*   Updated: 2022/07/08 15:13:57 by chartema      ########   odam.nl         */
+/*   Updated: 2022/07/18 13:13:53 by chartema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	check_values(t_data *data)
 			&& data->map[i][j] != 'P')
 				exit_msg("Error\nInvalid character used in map");
 			if (data->map[i][j] == 'C')
-				data->collectables++;
+				data->collected++;
 			if (data->map[i][j] == 'E')
 				data->exits++;
 			if (data->map[i][j] == 'P')
@@ -76,7 +76,7 @@ void	check_collected_data(t_data *data)
 {
 	if (data->exits == 0)
 		exit_msg("Error\nMap must have at least 1 exit");
-	if (data->collectables == 0)
+	if (data->collected == 0)
 		exit_msg("Error\nMap must have at least 1 collectable");
 	if (data->players == 0)
 		exit_msg("Error\nMap doesn't have enough players");

@@ -6,7 +6,7 @@
 /*   By: chartema <chartema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/28 14:10:01 by chartema      #+#    #+#                 */
-/*   Updated: 2022/07/13 15:31:42 by chartema      ########   odam.nl         */
+/*   Updated: 2022/07/18 13:19:36 by chartema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,30 @@
 # include "../lib/GNL/get_next_line.h"
 # include "MLX42/MLX42.h"
 
+typedef enum e_direction
+{
+	UP = 1,
+	DOWN = 2,
+	LEFT = 3,
+	RIGHT = 4,
+}			t_direction;
+
 typedef struct s_data
 {
 	char			**map;
 	//mlx_t			*mlx;
-	int				collectables;
+	int				collected;
+	int				tot_collectables;
+	int				nr_carrot;
 	int				exits;
 	int				players;
 	int				columns;
 	int				rows;
 	int				map_columns;
 	int				map_rows;
+
+	int				map_player_x;
+	int				map_player_y;
 
 	mlx_texture_t	*ground_tex;
 	mlx_texture_t	*tree_tex;
@@ -41,6 +54,8 @@ typedef struct s_data
 	mlx_image_t		*rabbit_img;
 	mlx_image_t		*carrot_img;
 	mlx_image_t		*exit_img;
+
+	t_direction		direction;
 }				t_data;
 
 typedef struct s_game
