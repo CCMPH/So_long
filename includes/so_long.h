@@ -6,7 +6,7 @@
 /*   By: chartema <chartema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/28 14:10:01 by chartema      #+#    #+#                 */
-/*   Updated: 2022/07/18 13:19:36 by chartema      ########   odam.nl         */
+/*   Updated: 2022/07/21 16:37:00 by chartema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_data
 	int				rows;
 	int				map_columns;
 	int				map_rows;
+	int				moves;
 
 	int				map_player_x;
 	int				map_player_y;
@@ -54,6 +55,7 @@ typedef struct s_data
 	mlx_image_t		*rabbit_img;
 	mlx_image_t		*carrot_img;
 	mlx_image_t		*exit_img;
+	mlx_image_t		*count_img;
 
 	t_direction		direction;
 }				t_data;
