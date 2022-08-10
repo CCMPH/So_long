@@ -6,7 +6,7 @@
 /*   By: chartema <chartema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/28 14:10:01 by chartema      #+#    #+#                 */
-/*   Updated: 2022/07/21 16:37:00 by chartema      ########   odam.nl         */
+/*   Updated: 2022/08/10 11:40:19 by chartema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef enum e_direction
 typedef struct s_data
 {
 	char			**map;
-	//mlx_t			*mlx;
 	int				collected;
 	int				tot_collectables;
 	int				nr_carrot;
@@ -49,12 +48,14 @@ typedef struct s_data
 	mlx_texture_t	*rabbit_tex;
 	mlx_texture_t	*carrot_tex;
 	mlx_texture_t	*exit_tex;
+	mlx_texture_t	*exit2_tex;
 
 	mlx_image_t		*ground_img;
 	mlx_image_t		*tree_img;
 	mlx_image_t		*rabbit_img;
 	mlx_image_t		*carrot_img;
 	mlx_image_t		*exit_img;
+	mlx_image_t		*exit2_img;
 	mlx_image_t		*count_img;
 
 	t_direction		direction;
@@ -67,21 +68,28 @@ typedef struct s_game
 }				t_game;
 
 // UTILS //
+char	*strjoin_and_free(char *s1, char *s2);
+void	init_struct(t_game *game);
+void	count_move(t_game *game);
 void	get_row_and_column(t_data *data);
+
+// FREE AND EXIT //
 void	exit_msg(char *message);
+void	free_and_exit_cross(void *param);
+void	free_and_exit(t_game *game, char *message, int exit_code);
 
 // VALIDATION //
 int		validate_map(char *map, t_game *game);
-char	**parse_map(int fd);
-void	check_newlines(char *str);
+char	**parse_map(int fd, t_game *game);
+void	check_newlines(char *str, t_game *game);
 void	check_extension(char *filename, char *ext);
 
 // CHECK_MAP //
-void	check_values(t_data *data);
-void	check_border(t_data *data);
-void	check_rectangular(t_data *data);
-void	check_collected_data(t_data *data);
-void	check_map(t_data *data);
+void	check_values(t_data *data, t_game *game);
+void	check_border(t_data *data, t_game *game);
+void	check_rectangular(t_data *data, t_game *game);
+void	check_collected_data(t_data *data, t_game *game);
+void	check_map(t_data *data, t_game *game);
 
 // MLX //
 void	load_game(t_game *game);
@@ -90,6 +98,9 @@ void	set_tree(t_game *game);
 void	set_rabbit(t_game *game);
 void	set_carrot(t_game *game);
 void	set_exit(t_game *game);
-//void	load_map(t_game *game);
+
+// MOVEMENT //
+void	init_movement(t_game *game, t_direction direction);
+void	set_movement(t_game *game, t_direction direction);
 
 #endif

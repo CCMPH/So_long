@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   ft_substr.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: chartema <chartema@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/08/08 14:33:50 by chartema      #+#    #+#                 */
+/*   Updated: 2022/08/08 14:33:52 by chartema      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)

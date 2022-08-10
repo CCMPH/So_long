@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   ft_strmapi.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: chartema <chartema@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/08/08 14:33:28 by chartema      #+#    #+#                 */
+/*   Updated: 2022/08/08 14:33:30 by chartema      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))

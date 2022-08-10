@@ -12,19 +12,19 @@ OBJS = $(FILES:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(AR) $(NAME) $(OBJS)
+	@$(AR) $(NAME) $(OBJS)
 
 %.o:%.c get_next_line.h
-	$(CC) $(CFLAGS) -D BUFFER_SIZE=20 -c $<
+	@$(CC) $(CFLAGS) -D BUFFER_SIZE=20 -c $<
 
 clean:
-	$(RM) $(OBJS)
+	@$(RM) $(OBJS)
 
 normi: $(FILES)
 	norminette $(FILES)
 
 fclean: clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
 
 re: fclean all
 

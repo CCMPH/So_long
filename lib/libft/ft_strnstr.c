@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   ft_strnstr.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: chartema <chartema@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/08/08 14:33:36 by chartema      #+#    #+#                 */
+/*   Updated: 2022/08/08 14:33:38 by chartema      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)

@@ -6,7 +6,7 @@
 /*   By: chartema <chartema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/16 14:18:59 by chartema      #+#    #+#                 */
-/*   Updated: 2022/07/07 11:56:55 by chartema      ########   odam.nl         */
+/*   Updated: 2022/08/09 11:17:10 by chartema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ char	*join_storage_and_buff(char *storage, char *buff)
 	int		j;
 	char	*str;
 
-	str = ft_calloc2((ft_strlen2(storage) + ft_strlen2(buff) + 1), sizeof(char));
+	str = ft_calloc2((ft_strlen2(storage)
+				+ ft_strlen2(buff) + 1), sizeof(char));
 	if (!str)
 		return (free_line(storage));
 	i = 0;

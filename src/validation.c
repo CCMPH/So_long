@@ -6,11 +6,11 @@
 /*   By: chartema <chartema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/08 15:12:40 by chartema      #+#    #+#                 */
-/*   Updated: 2022/07/13 11:09:30 by chartema      ########   odam.nl         */
+/*   Updated: 2022/08/10 11:31:24 by chartema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/so_long.h"
+#include "../includes/so_long.h"
 #include <fcntl.h> //nodig voor open
 
 void	check_extension(char *filename, char *ext)
@@ -33,35 +33,36 @@ void	check_extension(char *filename, char *ext)
 	}
 }
 
-void	check_newlines(char *str)
+void	check_newlines(char *str, t_game *game)
 {
 	int	i;
 
 	i = 0;
 	if (str[0] == '\n')
-		exit_msg("Error\nMap invalid, map starts with a newline");
+		free_and_exit(game, "Error\nMap invalid, map starts with a newline",
+			EXIT_FAILURE);
 	while (str[i] != '\0')
 	{
 		if (str[i] == '\n' && str[i + 1] == '\n')
-			exit_msg("Error\nMap invalid, to many newlines in a row");
+			free_and_exit(game, "Error\nMap invalid, to many newlines in a row",
+				EXIT_FAILURE);
 		i++;
 	}
 }
 
-char	**parse_map(int fd)
+char	**parse_map(int fd, t_game *game)
 {
 	char	*string;
 	char	*tmp_string;
 	char	**map;
-	// int		i;
 
-	string = ft_calloc(1, sizeof(char));
+	string = ft_calloc(1, sizeof(char *));
 	while (1)
 	{
 		tmp_string = get_next_line(fd);
 		if (tmp_string != NULL)
 		{
-			string = ft_strjoin(string, tmp_string);
+			string = strjoin_and_free(string, tmp_string);
 			if (string == NULL)
 				return (NULL);
 			free(tmp_string);
@@ -69,15 +70,9 @@ char	**parse_map(int fd)
 		else
 			break ;
 	}
-	check_newlines(string);
+	check_newlines(string, game);
 	map = ft_split(string, '\n');
 	free(string);
-	// i = 0;
-	// while (map[i] != '\0')
-	// {
-	// 	printf("%s\n", map[i]);
-	// 	i++;
-	// }
 	return (map);
 }
 
@@ -95,10 +90,12 @@ int	validate_map(char *map, t_game *game)
 	check_extension(map, ".ber");
 	fd = open(map, O_RDONLY);
 	if (fd == -1)
-		exit_msg("Error\nInvalid file");
-	game->data->map = parse_map(fd);
+		free_and_exit(game, "Error\nInvalid file", EXIT_FAILURE);
+	game->data->map = parse_map(fd, game);
+	if (game->data->map[0] == NULL)
+		free_and_exit(game, "Error\nEmpty file", EXIT_FAILURE);
 	get_width_and_height(game);
-	check_map(game->data);
+	check_map(game->data, game);
 	close(fd);
 	return (0);
 }
