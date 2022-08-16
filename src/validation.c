@@ -6,14 +6,14 @@
 /*   By: chartema <chartema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/08 15:12:40 by chartema      #+#    #+#                 */
-/*   Updated: 2022/08/10 11:31:24 by chartema      ########   odam.nl         */
+/*   Updated: 2022/08/16 12:04:37 by chartema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 #include <fcntl.h> //nodig voor open
 
-void	check_extension(char *filename, char *ext)
+static void	check_extension(char *filename, char *ext)
 {
 	size_t	filename_len;
 	size_t	ext_len;
@@ -33,24 +33,24 @@ void	check_extension(char *filename, char *ext)
 	}
 }
 
-void	check_newlines(char *str, t_game *game)
+static void	check_newlines(char *str, t_data *data)
 {
 	int	i;
 
 	i = 0;
 	if (str[0] == '\n')
-		free_and_exit(game, "Error\nMap invalid, map starts with a newline",
+		free_and_exit(data, "Error\nMap invalid, map starts with a newline",
 			EXIT_FAILURE);
 	while (str[i] != '\0')
 	{
 		if (str[i] == '\n' && str[i + 1] == '\n')
-			free_and_exit(game, "Error\nMap invalid, to many newlines in a row",
+			free_and_exit(data, "Error\nMap invalid, to many newlines in a row",
 				EXIT_FAILURE);
 		i++;
 	}
 }
 
-char	**parse_map(int fd, t_game *game)
+static char	**parse_map(int fd, t_data *data)
 {
 	char	*string;
 	char	*tmp_string;
@@ -70,32 +70,26 @@ char	**parse_map(int fd, t_game *game)
 		else
 			break ;
 	}
-	check_newlines(string, game);
+	check_newlines(string, data);
 	map = ft_split(string, '\n');
 	free(string);
 	return (map);
 }
 
-void	get_width_and_height(t_game	*game)
-{
-	while (game->data->map[game->data->map_rows] != NULL)
-		game->data->map_rows += 1;
-	game->data->map_columns = ft_strlen(game->data->map[0]);
-}
-
-int	validate_map(char *map, t_game *game)
+int	validate_map(char *map, t_data *data)
 {
 	int	fd;
 
 	check_extension(map, ".ber");
 	fd = open(map, O_RDONLY);
 	if (fd == -1)
-		free_and_exit(game, "Error\nInvalid file", EXIT_FAILURE);
-	game->data->map = parse_map(fd, game);
-	if (game->data->map[0] == NULL)
-		free_and_exit(game, "Error\nEmpty file", EXIT_FAILURE);
-	get_width_and_height(game);
-	check_map(game->data, game);
+		free_and_exit(data, "Error\nInvalid file", EXIT_FAILURE);
+	data->map = parse_map(fd, data);
+	if (data->map == NULL)
+		free_and_exit(data, "Error\nInvalid file", EXIT_FAILURE);
+	if (data->map[0] == NULL)
+		free_and_exit(data, "Error\nEmpty file", EXIT_FAILURE);
+	check_map(data);
 	close(fd);
 	return (0);
 }

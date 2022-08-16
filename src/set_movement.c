@@ -6,13 +6,13 @@
 /*   By: chartema <chartema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/08 14:09:20 by chartema      #+#    #+#                 */
-/*   Updated: 2022/08/10 11:52:51 by chartema      ########   odam.nl         */
+/*   Updated: 2022/08/16 11:52:02 by chartema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-int	find_location_carrot(t_game	*game)
+static int	find_location_carrot(t_data	*data)
 {
 	int	x;
 	int	y;
@@ -22,16 +22,16 @@ int	find_location_carrot(t_game	*game)
 
 	y = 1;
 	index = 0;
-	player_x = game->data->map_player_x;
-	player_y = game->data->map_player_y;
-	while (y < game->data->map_rows)
+	player_x = data->map_player_x;
+	player_y = data->map_player_y;
+	while (y < data->rows)
 	{
 		x = 0;
-		while (x < game->data->map_columns)
+		while (x < data->columns)
 		{
 			if (x == player_x && y == player_y)
 				return (index);
-			if (game->data->map[y][x] == 'C' || game->data->map[y][x] == 'K')
+			if (data->map[y][x] == 'C' || data->map[y][x] == 'K')
 				index++;
 			x++;
 		}
@@ -40,33 +40,33 @@ int	find_location_carrot(t_game	*game)
 	return (index);
 }
 
-void	remove_collectable(t_game *game)
+static void	remove_collectable(t_data *data)
 {
 	int	index;
 
-	index = find_location_carrot(game);
-	game->data->carrot_img->instances[index].z = -1;
+	index = find_location_carrot(data);
+	data->carrot_img->instances[index].z = -1;
 }
 
-void	set_new_exit(t_game	*game)
+static void	set_new_exit(t_data	*data)
 {
 	int	x;
 	int	y;
 	int	index;
 
 	y = 0;
-	while (y < game->data->map_rows)
+	while (y < data->rows)
 	{
 		x = 0;
-		while (x < game->data->map_columns)
+		while (x < data->columns)
 		{
-			if (game->data->map[y][x] == 'E')
+			if (data->map[y][x] == 'E')
 			{
-				index = mlx_image_to_window(game->mlx, game->data->exit2_img,
+				index = mlx_image_to_window(data->mlx, data->exit2_img,
 						x * BLOCKSIZE, y * BLOCKSIZE);
 				if (index == -1)
-					free_and_exit(game, "ERROR", EXIT_FAILURE);
-				game->data->exit2_img->instances[index].z = 4;
+					free_and_exit(data, "ERROR", EXIT_FAILURE);
+				data->exit2_img->instances[index].z = 4;
 			}
 			x++;
 		}
@@ -74,36 +74,33 @@ void	set_new_exit(t_game	*game)
 	}
 }
 
-void	edit_exit(t_game *game)
+static void	edit_exit(t_data *data)
 {
-	mlx_delete_image(game->mlx, game->data->exit_img);
-	set_new_exit(game);
+	mlx_delete_image(data->mlx, data->exit_img);
+	set_new_exit(data);
 }
 
-void	set_movement(t_game *game, t_direction direction)
+void	set_movement(t_data *data, t_direction direction)
 {
 	if (direction == UP)
-		game->data->map_player_y--;
+		data->map_player_y--;
 	else if (direction == DOWN)
-		game->data->map_player_y++;
+		data->map_player_y++;
 	else if (direction == LEFT)
-		game->data->map_player_x--;
+		data->map_player_x--;
 	else if (direction == RIGHT)
-		game->data->map_player_x++;
-	if (game->data->map[game->data->map_player_y]
-		[game->data->map_player_x] == 'C')
+		data->map_player_x++;
+	if (data->map[data->map_player_y][data->map_player_x] == 'C')
 	{
-		game->data->nr_carrot++;
-		game->data->map[game->data->map_player_y]
-		[game->data->map_player_x] = 'K';
-		remove_collectable(game);
-		if (game->data->nr_carrot == game->data->tot_collectables)
-			edit_exit(game);
+		data->nr_carrot++;
+		data->map[data->map_player_y][data->map_player_x] = 'K';
+		remove_collectable(data);
+		if (data->nr_carrot == data->tot_collectables)
+			edit_exit(data);
 	}
-	if (game->data->map[game->data->map_player_y]
-		[game->data->map_player_x] == 'E')
+	if (data->map[data->map_player_y][data->map_player_x] == 'E')
 	{
-		if (game->data->tot_collectables == game->data->nr_carrot)
-			free_and_exit(game, "You won!", EXIT_SUCCESS);
+		if (data->tot_collectables == data->nr_carrot)
+			free_and_exit(data, "You won!", EXIT_SUCCESS);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: chartema <chartema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/28 14:10:01 by chartema      #+#    #+#                 */
-/*   Updated: 2022/08/10 11:40:19 by chartema      ########   odam.nl         */
+/*   Updated: 2022/08/16 12:00:38 by chartema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,15 @@ typedef enum e_direction
 
 typedef struct s_data
 {
+	mlx_t			*mlx;
+
 	char			**map;
-	int				collected;
 	int				tot_collectables;
 	int				nr_carrot;
 	int				exits;
 	int				players;
 	int				columns;
 	int				rows;
-	int				map_columns;
-	int				map_rows;
 	int				moves;
 
 	int				map_player_x;
@@ -61,46 +60,33 @@ typedef struct s_data
 	t_direction		direction;
 }				t_data;
 
-typedef struct s_game
-{
-	t_data	*data;
-	mlx_t	*mlx;
-}				t_game;
-
 // UTILS //
 char	*strjoin_and_free(char *s1, char *s2);
-void	init_struct(t_game *game);
-void	count_move(t_game *game);
+void	init_struct(t_data *data);
+void	count_move(t_data *data);
 void	get_row_and_column(t_data *data);
 
 // FREE AND EXIT //
 void	exit_msg(char *message);
 void	free_and_exit_cross(void *param);
-void	free_and_exit(t_game *game, char *message, int exit_code);
+void	free_and_exit(t_data *data, char *message, int exit_code);
 
 // VALIDATION //
-int		validate_map(char *map, t_game *game);
-char	**parse_map(int fd, t_game *game);
-void	check_newlines(char *str, t_game *game);
-void	check_extension(char *filename, char *ext);
+int		validate_map(char *map, t_data *data);
 
 // CHECK_MAP //
-void	check_values(t_data *data, t_game *game);
-void	check_border(t_data *data, t_game *game);
-void	check_rectangular(t_data *data, t_game *game);
-void	check_collected_data(t_data *data, t_game *game);
-void	check_map(t_data *data, t_game *game);
+void	check_map(t_data *data);
 
 // MLX //
-void	load_game(t_game *game);
-void	set_ground(t_game *game);
-void	set_tree(t_game *game);
-void	set_rabbit(t_game *game);
-void	set_carrot(t_game *game);
-void	set_exit(t_game *game);
+void	load_game(t_data *data);
+void	set_ground(t_data *data);
+void	set_tree(t_data *data);
+void	set_rabbit(t_data *data);
+void	set_carrot(t_data *data);
+void	set_exit(t_data *data);
 
 // MOVEMENT //
-void	init_movement(t_game *game, t_direction direction);
-void	set_movement(t_game *game, t_direction direction);
+void	init_movement(t_data *data, t_direction direction);
+void	set_movement(t_data *data, t_direction direction);
 
 #endif

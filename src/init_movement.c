@@ -6,48 +6,48 @@
 /*   By: chartema <chartema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/08 14:03:31 by chartema      #+#    #+#                 */
-/*   Updated: 2022/08/09 10:57:40 by chartema      ########   odam.nl         */
+/*   Updated: 2022/08/16 11:16:39 by chartema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-int	check_movement_valid(t_game *game, t_direction direction)
+static int	check_movement_valid(t_data *data, t_direction direction)
 {
 	int	x;
 	int	y;
 
-	x = game->data->rabbit_img->instances->x / BLOCKSIZE;
-	y = game->data->rabbit_img->instances->y / BLOCKSIZE;
-	if (direction == UP && game->data->map[y - 1][x] == '1')
+	x = data->rabbit_img->instances->x / BLOCKSIZE;
+	y = data->rabbit_img->instances->y / BLOCKSIZE;
+	if (direction == UP && data->map[y - 1][x] == '1')
 		return (0);
-	if (direction == DOWN && game->data->map[y + 1][x] == '1')
+	if (direction == DOWN && data->map[y + 1][x] == '1')
 		return (0);
-	if (direction == LEFT && game->data->map[y][x - 1] == '1')
+	if (direction == LEFT && data->map[y][x - 1] == '1')
 		return (0);
-	if (direction == RIGHT && game->data->map[y][x + 1] == '1')
+	if (direction == RIGHT && data->map[y][x + 1] == '1')
 		return (0);
 	return (1);
 }
 
-void	move_player(t_game *game, char direction)
+static void	move_player(t_data *data, char direction)
 {
 	if (direction == UP)
-		game->data->rabbit_img->instances->y -= BLOCKSIZE;
+		data->rabbit_img->instances->y -= BLOCKSIZE;
 	if (direction == DOWN)
-		game->data->rabbit_img->instances->y += BLOCKSIZE;
+		data->rabbit_img->instances->y += BLOCKSIZE;
 	if (direction == LEFT)
-		game->data->rabbit_img->instances->x -= BLOCKSIZE;
+		data->rabbit_img->instances->x -= BLOCKSIZE;
 	if (direction == RIGHT)
-		game->data->rabbit_img->instances->x += BLOCKSIZE;
-	count_move(game);
+		data->rabbit_img->instances->x += BLOCKSIZE;
+	count_move(data);
 }
 
-void	init_movement(t_game *game, t_direction direction)
+void	init_movement(t_data *data, t_direction direction)
 {
-	if (check_movement_valid(game, direction))
+	if (check_movement_valid(data, direction))
 	{
-		move_player(game, direction);
-		set_movement(game, direction);
+		move_player(data, direction);
+		set_movement(data, direction);
 	}
 }
