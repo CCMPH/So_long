@@ -6,7 +6,7 @@
 /*   By: chartema <chartema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/28 11:21:57 by chartema      #+#    #+#                 */
-/*   Updated: 2022/08/16 13:11:52 by chartema      ########   odam.nl         */
+/*   Updated: 2022/08/16 13:15:39 by chartema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,16 @@ static void	start_game(t_data *data)
 	mlx_terminate(data->mlx);
 }
 
-void	on_exit(void)
-{
-	system("leaks so_long");
-}
+// void	on_exit(void)
+// {
+// 	system("leaks so_long");
+// }
 
 int	main(int ac, char **av)
 {
 	t_data	data;
 
-	atexit(on_exit);
+	//atexit(on_exit);
 	if (ac == 1)
 		exit_msg("Error\nNot enough arguments");
 	if (ac > 2)
